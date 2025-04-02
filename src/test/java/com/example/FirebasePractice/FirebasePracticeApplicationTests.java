@@ -1,10 +1,10 @@
-package com.example.SpringBoot_Firebase_CRUD;
+package com.example.FirebasePractice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootFirebaseCrudApplicationTests {
+class FirebasePracticeApplicationTests {
 
 	@Test
 	void contextLoads() {
