@@ -24,7 +24,7 @@ public class FirebaseConfig {
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setDatabaseUrl("https://springbootpractice-2a5b3-default-rtdb.firebaseio.com")
+                    .setDatabaseUrl("")
                     .build();
 
             return FirebaseApp.initializeApp(options);
