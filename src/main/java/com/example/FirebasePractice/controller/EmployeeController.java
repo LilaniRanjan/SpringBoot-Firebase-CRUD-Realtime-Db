@@ -27,4 +27,10 @@ public class EmployeeController {
     public EmployeeResponse getEmployeeById(@PathVariable String id) throws ExecutionException, InterruptedException, ExecutionException {
         return employeeService.getEmployeeById(id).get();  // Fetch and return employee data by ID
     }
+
+    @GetMapping("/all")
+    public List<EmployeeResponse> getAllEmployees() throws ExecutionException, InterruptedException {
+        // Call service method to get all employees and block until result is available
+        return employeeService.getAllEmployees().get();
+    }
 }

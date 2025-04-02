@@ -1,12 +1,10 @@
 package com.example.FirebasePractice.service;
 
 import com.example.FirebasePractice.dto.request.EmployeeCreateRequest;
+import com.example.FirebasePractice.dto.request.EmployeeUpdateRequest;
 import com.example.FirebasePractice.dto.response.EmployeeResponse;
 import com.example.FirebasePractice.model.Employee;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -62,7 +60,33 @@ public class EmployeeServiceImpl implements EmployeeService {
         return future;
     }
 
+    @Override
+    public CompletableFuture<List<EmployeeResponse>> getAllEmployees() {
+        CompletableFuture<List<EmployeeResponse>> future = new CompletableFuture<>();
 
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<EmployeeResponse> employeeResponses = new ArrayList<>();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Employee employee = snapshot.getValue(Employee.class);
+                    if (employee != null) {
+                        employeeResponses.add(mapToResponse(employee));
+                    }
+                }
+
+                future.complete(employeeResponses);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                future.completeExceptionally(new Exception("Failed to fetch employees: " + error.getMessage()));
+            }
+        });
+
+        return future;
+    }
 
     private EmployeeResponse mapToResponse(Employee employee) {
         return new EmployeeResponse(employee.getId(), employee.getName(), employee.getEmail(), employee.getDepartment());
