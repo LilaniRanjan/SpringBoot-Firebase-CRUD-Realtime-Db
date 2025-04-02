@@ -25,7 +25,6 @@ public class FirebaseConfig {
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://springbootpractice-2a5b3-default-rtdb.firebaseio.com")
-//                    .setDatabaseUrl("https://springboot-firebase-ae09f-default-rtdb.firebaseio.com/")
                     .build();
 
             return FirebaseApp.initializeApp(options);
@@ -34,7 +33,7 @@ public class FirebaseConfig {
         }
     }
 
-    // ✅ Register FirebaseDatabase as a Spring Bean
+    // Register FirebaseDatabase as a Spring Bean
     @Bean
     public FirebaseDatabase firebaseDatabase(FirebaseApp firebaseApp) {
         return FirebaseDatabase.getInstance(firebaseApp);
