@@ -6,6 +6,9 @@ import com.example.FirebasePractice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 @RestController
 @RequestMapping("/emp")
 public class EmployeeController {
@@ -17,5 +20,11 @@ public class EmployeeController {
     @PostMapping("/create")
     public EmployeeResponse createEmployee(@RequestBody EmployeeCreateRequest request) {
         return employeeService.createEmployee(request);
+    }
+
+    // GET endpoint for fetching an employee by ID
+    @GetMapping("/{id}")
+    public EmployeeResponse getEmployeeById(@PathVariable String id) throws ExecutionException, InterruptedException, ExecutionException {
+        return employeeService.getEmployeeById(id).get();  // Fetch and return employee data by ID
     }
 }
